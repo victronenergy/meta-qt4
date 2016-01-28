@@ -8,6 +8,7 @@ set_arch() {
        arm*)     QT_ARCH=arm ;;
        i*86*)    QT_ARCH=i386 ;;
        mips*)    QT_ARCH=mips ;;
+       nios2*)   QT_ARCH=nios2 ;;
        powerpc*) QT_ARCH=powerpc ;;
        x86_64*)  QT_ARCH=x86_64 ;;
    esac
