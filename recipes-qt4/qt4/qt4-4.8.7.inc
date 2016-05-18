@@ -26,6 +26,7 @@ SRC_URI = "http://download.qt-project.org/official_releases/qt/4.8/${PV}/qt-ever
            file://0032-aarch64_add_header.patch \
            file://0034-Fix-kmap2qmap-build-with-clang.patch \
            file://0035-Add-nios2-support.patch \
+           file://0036-qt-everywhere-opensource-src-4.8.7-gcc6.patch \
            file://Fix-QWSLock-invalid-argument-logs.patch \
            file://add_check_for_aarch64_32.patch \
            file://g++.conf \
@@ -40,6 +41,9 @@ UPSTREAM_CHECK_URI = "http://download.qt.io/official_releases/qt/4.8/"
 UPSTREAM_CHECK_REGEX = "(?P<pver>\d+(\.\d+)+)/"
 
 S = "${WORKDIR}/qt-everywhere-opensource-src-${PV}"
+
+# workaround for class std::auto_ptr' is deprecated with gcc-6
+CXXFLAGS += "-std=gnu++98 -Wno-deprecated"
 
 # disable webkit for mips64 n32 temporarily that fails to compile,
 # qt upstream defect:
