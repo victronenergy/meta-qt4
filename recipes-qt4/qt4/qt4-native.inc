@@ -49,6 +49,7 @@ EXTRA_OECONF = "-prefix ${prefix} \
                 -embedded -no-freetype -no-glib -no-iconv \
                 -exceptions -xmlpatterns \
                 -qt3support \
+                -no-pch \
                 -no-fast -silent -no-rpath"
 
 # yank default -e, otherwise we get the following error:
