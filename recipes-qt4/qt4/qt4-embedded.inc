@@ -2,7 +2,9 @@ SUMMARY = "Cross-platform UI toolkit and application framework (framebuffer vers
 DESCRIPTION = "Qt is a versatile cross-platform application framework -- this is the embedded (framebuffer) version."
 SECTION = "libs"
 HOMEPAGE = "http://qt-project.org/"
-DEPENDS += "tslib"
+
+PACKAGECONFIG ??= ""
+PACKAGECONFIG[tslib] = " -plugin-mouse-tslib, ,tslib"
 
 QT4EDEPENDS = ""
 QT_BASE_LIB  ?= "libqt-embedded"
@@ -18,8 +20,8 @@ QT_EMBEDDED_FLAGS ?= " \
 "
 QT_EMBEDDED_EXTRA_FLAGS ?= " \
     -plugin-gfx-transformed -plugin-gfx-qvfb -plugin-gfx-vnc \
-    -plugin-mouse-tslib -qt-mouse-pc -qt-mouse-qvfb -qt-mouse-linuxinput \
-    -qt-kbd-tty -qt-kbd-linuxinput \
+    -qt-mouse-pc -qt-mouse-qvfb -qt-mouse-linuxinput \
+    -qt-kbd-tty -qt-kbd-linuxinput ${PACKAGECONFIG_CONFARGS} \
 "
 QT_EMBEDDED_KEYPAD_FLAGS ?= " \
     -DQT_KEYPAD_NAVIGATION \
