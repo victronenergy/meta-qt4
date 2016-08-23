@@ -7,7 +7,7 @@ COMPATIBLE_HOST_mips64 = "null"
 
 inherit packagegroup
 
-TOUCH = ' ${@bb.utils.contains("MACHINE_FEATURES", "touchscreen", "tslib tslib-calibrate tslib-tests", "",d)}'
+TOUCH = ' ${@bb.utils.contains("MACHINE_FEATURES", "touchscreen", "tslib tslib-calibrate tslib-tests qt4-embedded-plugin-mousedriver-tslib", "",d)}'
 
 RDEPENDS_${PN} = " \
 	qt4-embedded \
@@ -35,7 +35,6 @@ RDEPENDS_${PN} = " \
 	qt4-embedded-plugin-imageformat-mng \
 	qt4-embedded-plugin-imageformat-svg \
 	qt4-embedded-plugin-imageformat-tiff \
-	qt4-embedded-plugin-mousedriver-tslib \
 	qt4-embedded-plugin-script-dbus \
 	qt4-embedded-plugin-sqldriver-sqlite \
 	${TOUCH} \
