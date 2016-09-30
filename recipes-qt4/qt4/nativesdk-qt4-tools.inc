@@ -8,6 +8,10 @@ FILESEXTRAPATHS =. "${FILE_DIRNAME}/qt4-${PV}:"
 
 inherit nativesdk qmake2
 
+# This recipe builds the tools as static executables (using static libraries),
+# so we need to avoid disabling them.
+DISABLE_STATIC = ""
+
 SRC_URI = "http://download.qt-project.org/official_releases/qt/4.8/${PV}/qt-everywhere-opensource-src-${PV}.tar.gz \
            file://0001-qlibraryinfo-allow-to-set-qt.conf-from-the-outside-u.patch \
            file://0004-configure-qmake-is-already-built-in-qt4-tools-native.patch \
