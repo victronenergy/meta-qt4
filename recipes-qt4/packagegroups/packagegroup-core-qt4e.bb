@@ -37,7 +37,6 @@ RDEPENDS_${PN} = " \
 	qt4-embedded-plugin-imageformat-tiff \
 	qt4-embedded-plugin-script-dbus \
 	qt4-embedded-plugin-sqldriver-sqlite \
-	${TOUCH} \
         qt4-embedded-demos \
         qt4-embedded-examples \
         qt-demo-init \
@@ -47,5 +46,6 @@ RDEPENDS_${PN} = " \
 RRECOMMENDS_${PN} = " \
 	libqt-embeddedxmlpatterns4 \
 	qt4-embedded-plugin-phonon-backend-gstreamer \
+	${TOUCH} \
 "
 
