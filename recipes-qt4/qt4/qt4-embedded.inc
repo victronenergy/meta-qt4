@@ -3,7 +3,7 @@ DESCRIPTION = "Qt is a versatile cross-platform application framework -- this is
 SECTION = "libs"
 HOMEPAGE = "http://qt-project.org/"
 
-PACKAGECONFIG ??= ""
+PACKAGECONFIG ??= '${@bb.utils.contains("MACHINE_FEATURES", "touchscreen", "tslib", "",d)}'
 PACKAGECONFIG[tslib] = " -plugin-mouse-tslib, ,tslib"
 
 QT4EDEPENDS = ""
