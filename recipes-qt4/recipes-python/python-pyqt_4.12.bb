@@ -2,23 +2,19 @@ SUMMARY = "Python Qt4 Bindings"
 AUTHOR = "Phil Thomson @ riverbank.co.uk"
 HOMEPAGE = "http://riverbankcomputing.co.uk"
 SECTION = "devel/python"
-LICENSE = "GPLv2 & GPLv3 & GPL_EXCEPTION"
+LICENSE = "GPLv3"
 LIC_FILES_CHKSUM = "\
-    file://GPL_EXCEPTION.TXT;md5=b73b0be471db679533dc94781c14af58 \
-    file://GPL_EXCEPTION_ADDENDUM.TXT;md5=c1e04ec2aa0911061005a801abf81e40 \
-    file://OPENSOURCE-NOTICE.TXT;md5=6ad9123620cc04a22c394753ad4767d7 \
-    file://LICENSE.GPL2;md5=577ff65f6653562af318bfc3944b1f20 \
-    file://LICENSE.GPL3;md5=feee51612c3c1191a1d5f41156fa2c75 \
+    file://LICENSE;md5=8bce67d3de90b75ae6e185c5c2ea1604 \
 "
 DEPENDS = "sip sip-native qt4-x11-free python"
 
 SRC_URI = "\
-    ${SOURCEFORGE_MIRROR}/pyqt/PyQt-x11-gpl-${PV}.tar.gz \
+    https://sourceforge.net/projects/pyqt/files/PyQt4/PyQt-4.12/PyQt4_gpl_x11-${PV}.tar.gz \
 "
-SRC_URI[md5sum] = "997c3e443165a89a559e0d96b061bf70"
-SRC_URI[sha256sum] = "853780dcdbe2e6ba785d703d059b096e1fc49369d3e8d41a060be874b8745686"
+SRC_URI[md5sum] = "eb8c338f2d8842aa7655e8e1aa840bed"
+SRC_URI[sha256sum] = "3c1d4b55314adb3e1132de8fc2a92eed216d37e58aceed41294dbca210ca88db"
 
-S = "${WORKDIR}/PyQt-x11-gpl-${PV}"
+S = "${WORKDIR}/PyQt4_gpl_x11-${PV}"
 
 PARALLEL_MAKE = ""
 
