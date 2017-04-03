@@ -26,7 +26,7 @@ inherit qmake2 pythonnative python-dir distro_features_check
 # depends on qt4-x11-free
 REQUIRED_DISTRO_FEATURES = "x11"
 
-DISABLED_FEATURES = "PyQt_Desktop_OpenGL PyQt_Accessibility PyQt_SessionManager"
+DISABLED_FEATURES = "PyQt_Desktop_OpenGL PyQt_Accessibility PyQt_SessionManager PyQt_OpenSSL"
 
 DISABLED_FEATURES_append_arm = " PyQt_qreal_double"
 
