@@ -23,6 +23,13 @@ subdirectory: meta
 branch: master
 revision: HEAD
 
+If you want to build python-pyqt you will also need meta-oe:
+
+URI: git://github.com/openembedded/meta-openembedded
+subdirectory: meta-oe
+branch: master
+revision: HEAD
+
 
 Maintenance
 -----------
