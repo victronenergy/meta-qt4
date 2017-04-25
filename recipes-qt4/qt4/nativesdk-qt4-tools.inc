@@ -85,13 +85,13 @@ TOBUILD = "\
   src/tools/moc \
   src/corelib \
   src/sql \
-  src/dbus \
-  src/qt3support \
   src/xml \
+  src/dbus \
   src/tools/uic \
   src/tools/rcc \
   src/network \
   src/gui \
+  src/qt3support \
   src/tools/uic3 \
   tools/linguist/lrelease \
   tools/linguist/lupdate \
