@@ -1,0 +1,37 @@
+Upstream-Status: Inappropriate [current version does not have this plugin]
+diff --git a/src/plugins/Effect/srconverter/srconverter.cpp b/src/plugins/Effect/srconverter/srconverter.cpp
+index fcd77bc04cb7..873923e6219e 100644
+--- a/src/plugins/Effect/srconverter/srconverter.cpp
++++ b/src/plugins/Effect/srconverter/srconverter.cpp
+@@ -51,17 +51,18 @@ void SRConverter::applyEffect(Buffer *b)
+ {
+     if (m_src_state && b->nbytes > 0)
+     {
++	float *data_in = new float [m_src_data.input_frames * channels()];
+         m_src_data.end_of_input = 0;
+         m_src_data.input_frames = b->nbytes / m_sz / channels();
+-        m_src_data.data_in = new float [m_src_data.input_frames * channels()];
+         m_src_data.output_frames = m_src_data.src_ratio * m_src_data.input_frames + 1;
+         m_src_data.data_out = new float [m_src_data.output_frames * channels()];
+ 
+ 
+         if(format() == Qmmp::PCM_S16LE)
+         {
+-            src_short_to_float_array((short*) b->data, m_src_data.data_in,
++            src_short_to_float_array((short*) b->data, data_in,
+                                      m_src_data.input_frames * channels());
++            m_src_data.data_in = data_in;
+         }
+         else
+         {
+@@ -75,8 +76,9 @@ void SRConverter::applyEffect(Buffer *b)
+                         data[i] |= 0xff000000;
+                 }
+             }
+-            src_int_to_float_array((int*) b->data, m_src_data.data_in,
++            src_int_to_float_array((int*) b->data, data_in,
+                                    m_src_data.input_frames * channels());
++            m_src_data.data_in = data_in;
+         }
+ 
+         if ((m_srcError = src_process(m_src_state, &m_src_data)) > 0)

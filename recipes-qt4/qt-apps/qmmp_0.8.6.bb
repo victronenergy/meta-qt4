@@ -10,6 +10,7 @@ DEPENDS = "taglib libmad libvorbis libogg alsa-lib libsndfile1 libsamplerate0 cu
 
 SRC_URI = "http://qmmp.ylsoftware.com/files/${BP}.tar.bz2 \
            file://no-host-paths.patch \
+           file://invalid-conv.patch \
           "
 
 SRC_URI[md5sum] = "67e96e89c61b7432e5a12f555db702b1"
