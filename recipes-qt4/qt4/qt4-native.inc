@@ -21,6 +21,7 @@ SRC_URI = "http://download.qt-project.org/official_releases/qt/4.8/${PV}/qt-ever
 	   file://gcc-6.patch \
            file://g++.conf \
            file://linux.conf \
+	   file://qt-everywhere-opensource-src-4.8.6-QTBUG-22829.patch \
 	"
 
 UPSTREAM_CHECK_URI = "http://download.qt.io/official_releases/qt/4.8/"
