@@ -30,7 +30,7 @@ UPSTREAM_CHECK_REGEX = "(?P<pver>\d+(\.\d+)+)/"
 S = "${WORKDIR}/qt-everywhere-opensource-src-${PV}"
 
 # workaround for class std::auto_ptr' is deprecated with gcc-6
-CXXFLAGS += "-std=gnu++98 -Wno-deprecated"
+CXXFLAGS += "-std=gnu++98 -Wno-deprecated -DUCHAR_TYPE=wchar_t"
 
 EXTRA_OECONF = "-prefix ${prefix} \
                 -bindir ${bindir} \
