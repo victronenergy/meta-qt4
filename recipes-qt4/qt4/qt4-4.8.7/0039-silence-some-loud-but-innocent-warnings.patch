@@ -1,0 +1,91 @@
+From e03ee6b5bca6ab457a16faa8399ba20cd5cc1fbc Mon Sep 17 00:00:00 2001
+From: Jeroen Hofstee <jhofstee@victronenergy.com>
+Date: Sat, 16 Nov 2019 16:50:00 +0100
+Subject: [PATCH] silence some loud but innocent warnings
+
+These warnings are harmless for old code, so suppress them so real
+issue are visible in the logs.
+---
+ configure | 66 +++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 66 insertions(+)
+
+diff --git a/configure b/configure
+index a9ba7c8ccb..6ebf71ab21 100755
+--- a/configure
++++ b/configure
+@@ -3435,6 +3435,72 @@ if [ -n "$CFG_SYSROOT" ]; then
+ fi
+ export SYSROOT_FLAG    # used by config.tests/unix/compile.test
+ 
++# Since qt4 is no longer officialy maintained, silence the harmless warnings
++# since nobody is going to fix them anyway...
++
++if compilerSupportsFlag $TEST_COMPILER -Wunused-but-set-variable -Werror; then
++	QMakeVar add QMAKE_CFLAGS -Wno-unused-but-set-variable
++	QMakeVar add QMAKE_CXXFLAGS -Wno-unused-but-set-variable
++fi
++
++if compilerSupportsFlag $TEST_COMPILER -Wunused-function -Werror; then
++	QMakeVar add QMAKE_CFLAGS -Wno-unused-function
++	QMakeVar add QMAKE_CXXFLAGS -Wno-unused-function
++fi
++
++if compilerSupportsFlag $TEST_COMPILER -Wunused-variable -Werror; then
++	QMakeVar add QMAKE_CFLAGS -Wno-unused-variable
++	QMakeVar add QMAKE_CXXFLAGS -Wno-unused-variable
++fi
++
++if compilerSupportsFlag $TEST_COMPILER -Wunused-local-typedefs; then
++	QMakeVar add QMAKE_CFLAGS -Wno-unused-local-typedefs
++	QMakeVar add QMAKE_CXXFLAGS -Wno-unused-local-typedefs
++fi
++
++if compilerSupportsFlag $TEST_COMPILER -Wimplicit-fallthrough -Werror; then
++	QMakeVar add QMAKE_CFLAGS -Wno-implicit-fallthrough
++	QMakeVar add QMAKE_CXXFLAGS -Wno-implicit-fallthrough
++fi
++
++if compilerSupportsFlag $TEST_COMPILER -Wunused-parameter -Werror; then
++	QMakeVar add QMAKE_CFLAGS -Wno-unused-parameter
++	QMakeVar add QMAKE_CXXFLAGS -Wno-unused-parameter
++fi
++
++# when a compiler starts guessing it is often wrong..
++if compilerSupportsFlag $TEST_COMPILER -Wmaybe-uninitialized -Werror; then
++	QMakeVar add QMAKE_CFLAGS -Wno-maybe-uninitialized
++	QMakeVar add QMAKE_CXXFLAGS -Wno-maybe-uninitialized
++fi
++
++if compilerSupportsFlag $TEST_COMPILER -Wswitch -Werror; then
++	QMakeVar add QMAKE_CFLAGS -Wno-switch
++	QMakeVar add QMAKE_CXXFLAGS -Wno-switch
++fi
++
++if compilerSupportsFlag $TEST_COMPILER -Wdeprecated-copy -Werror; then
++	QMakeVar add QMAKE_CXXFLAGS -Wno-deprecated-copy
++fi
++
++if compilerSupportsFlag $TEST_COMPILER -Wdeprecated-declarations -Werror; then
++	QMakeVar add QMAKE_CXXFLAGS -Wno-deprecated-declarations
++fi
++
++if compilerSupportsFlag $TEST_COMPILER -Wparentheses -Werror; then
++	QMakeVar add QMAKE_CXXFLAGS -Wno-parentheses
++fi
++
++if compilerSupportsFlag $TEST_COMPILER -Wclass-memaccess -Werror; then
++	QMakeVar add QMAKE_CXXFLAGS -Wno-class-memaccess
++fi
++
++# note: parameter passing for argument of type 'QMap<QSettingsKey, QVariant>::iterator' changed in GCC 7.1
++# Assuming that OE is used to rebuild all sources, there is no need to worry about abi changes..
++if compilerSupportsFlag $TEST_COMPILER -Wpsabi -Werror; then
++	QMakeVar add QMAKE_CXXFLAGS -Wno-psabi
++fi
++
+ # auto-detect precompiled header support
+ if [ "$CFG_PRECOMPILE" = "auto" ]; then
+     if [ `echo "$CFG_MAC_ARCHS" | wc -w` -gt 1 ]; then
+-- 
+2.17.1
+

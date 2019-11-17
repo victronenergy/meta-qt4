@@ -1,0 +1,78 @@
+From f27717257dc7fcfe1d48b02b10668da1af678ad4 Mon Sep 17 00:00:00 2001
+From: Jeroen Hofstee <jhofstee@victronenergy.com>
+Date: Sat, 16 Nov 2019 16:48:58 +0100
+Subject: [PATCH 1/2] prevent gcc 9.2 miscompiling Q_FOREACH
+
+With gcc 9.2, Q_FOREACH only loops over the first element [1]. Fix
+this by backporting [2]. That commit is for other reasons, but also
+fixes this.
+
+Original commit by Thiago Macieira <thiago.macieira@intel.com>:
+
+It's possible to do without them, which probably makes the number of
+supported compilers a lot bigger: they just need to support decltype()
+or __typeof__.
+
+That includes the Intel compiler. The old code was also apparently
+working, but no one had realized the old workaround for some old version
+was still in place.
+
+The loop overhead is more or less the same. I have not done benchmarks,
+but inspection of the generated assembly shows more or less the same
+number of instructions.
+
+Change-Id: I32d499c84a6ddd19d994b49f17a469acb5c3a3f1
+Reviewed-by: Olivier Goffart <ogoffart@woboq.com>
+Reviewed-by: Marc Mutz <marc.mutz@kdab.com>
+
+[1] https://github.com/qt/qtbase/commit/c35a3f519007af44c3b364b9af86f6a336f6411b
+[2] https://gcc.gnu.org/bugzilla/show_bug.cgi?id=90617
+---
+ src/corelib/global/qglobal.h | 21 +++++++++++++++------
+ 1 file changed, 15 insertions(+), 6 deletions(-)
+
+diff --git a/src/corelib/global/qglobal.h b/src/corelib/global/qglobal.h
+index 96fbeee0ae..a2f9ea097a 100644
+--- a/src/corelib/global/qglobal.h
++++ b/src/corelib/global/qglobal.h
+@@ -2367,22 +2367,31 @@ typedef uint Flags;
+ 
+ #endif /* Q_NO_TYPESAFE_FLAGS */
+ 
+-#if defined(Q_CC_GNU) && !defined(Q_CC_INTEL) && !defined(Q_CC_RVCT)
++#if defined(Q_CC_GNU) && !defined(Q_CC_RVCT)
+ /* make use of typeof-extension */
+ template <typename T>
+ class QForeachContainer {
+ public:
+-    inline QForeachContainer(const T& t) : c(t), brk(0), i(c.begin()), e(c.end()) { }
++    inline QForeachContainer(const T& t) : c(t), i(c.begin()), e(c.end()), control(1) { }
+     const T c;
+-    int brk;
+     typename T::const_iterator i, e;
++    int control;
+ };
+ 
++// Explanation of the control word:
++//  - it's initialized to 1
++//  - that means both the inner and outer loops start
++//  - if there were no breaks, at the end of the inner loop, it's set to 0, which
++//    causes it to exit (the inner loop is run exactly once)
++//  - at the end of the outer loop, it's inverted, so it becomes 1 again, allowing
++//    the outer loop to continue executing
++//  - if there was a break inside the inner loop, it will exit with control still
++//    set to 1; in that case, the outer loop will invert it to 0 and will exit too
+ #define Q_FOREACH(variable, container)                                \
+ for (QForeachContainer<__typeof__(container)> _container_(container); \
+-     !_container_.brk && _container_.i != _container_.e;              \
+-     __extension__  ({ ++_container_.brk; ++_container_.i; }))                       \
+-    for (variable = *_container_.i;; __extension__ ({--_container_.brk; break;}))
++    _container_.control && _container_.i != _container_.e;            \
++    ++_container_.i, _container_.control ^= 1)                        \
++    for (variable = *_container_.i; _container_.control; _container_.control = 0)
+ 
+ #else
+ 
+-- 
+2.17.1
+

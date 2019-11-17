@@ -19,6 +19,8 @@ SRC_URI = "http://download.qt-project.org/official_releases/qt/4.8/${PV}/qt-ever
            file://0006-configure-Use-OE_QMAKE_-values-to-specify-Qt-utility.patch \
            file://0007-dbus-Remove-const-usage-that-causes-compile-failure-.patch \
            file://0008-qmake.pro-Allow-building-a-separate-qmake-for-the-ta.patch \
+           file://0038-prevent-gcc-9.2-miscompiling-Q_FOREACH.patch \
+           file://0039-silence-some-loud-but-innocent-warnings.patch \
            file://g++.conf \
            file://linux.conf"
 

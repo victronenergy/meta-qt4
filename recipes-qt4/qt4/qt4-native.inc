@@ -18,6 +18,8 @@ SRC_URI = "http://download.qt-project.org/official_releases/qt/4.8/${PV}/qt-ever
            file://0015-configure-add-nostrip-for-debug-packages.patch  \
            file://0021-configure-make-qt4-native-work-with-long-building-pa.patch \
            file://0036-qt-everywhere-opensource-src-4.8.7-gcc6.patch \
+           file://0038-prevent-gcc-9.2-miscompiling-Q_FOREACH.patch \
+           file://0039-silence-some-loud-but-innocent-warnings.patch \
            file://gcc-version.patch \
            file://g++.conf \
            file://linux.conf \
