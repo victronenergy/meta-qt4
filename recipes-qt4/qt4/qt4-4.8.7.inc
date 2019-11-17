@@ -27,7 +27,7 @@ SRC_URI = "http://download.qt-project.org/official_releases/qt/4.8/${PV}/qt-ever
            file://0034-Fix-kmap2qmap-build-with-clang.patch \
            file://0035-Add-nios2-support.patch \
            file://0036-qt-everywhere-opensource-src-4.8.7-gcc6.patch \
-	   file://0037-fix-configure-with-icu60.patch \
+           file://0037-fix-configure-with-icu60.patch \
            file://gcc-version.patch \
            file://Fix-QWSLock-invalid-argument-logs.patch \
            file://add_check_for_aarch64_32.patch \
@@ -35,7 +35,7 @@ SRC_URI = "http://download.qt-project.org/official_releases/qt/4.8/${PV}/qt-ever
            file://g++.conf \
            file://linux.conf \
            file://fix-for-mips-n32.patch \
-	   file://qt-everywhere-opensource-src-4.8.6-QTBUG-22829.patch \
+           file://qt-everywhere-opensource-src-4.8.6-QTBUG-22829.patch \
            "
 
 SRC_URI[md5sum] = "d990ee66bf7ab0c785589776f35ba6ad"
