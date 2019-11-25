@@ -12,7 +12,7 @@ inherit nativesdk qmake2
 # so we need to avoid disabling them.
 DISABLE_STATIC = ""
 
-SRC_URI = "http://download.qt-project.org/official_releases/qt/4.8/${PV}/qt-everywhere-opensource-src-${PV}.tar.gz \
+SRC_URI = "http://download.qt-project.org/archive/qt/4.8/${PV}/qt-everywhere-opensource-src-${PV}.tar.gz \
            file://0001-qlibraryinfo-allow-to-set-qt.conf-from-the-outside-u.patch \
            file://0004-configure-qmake-is-already-built-in-qt4-tools-native.patch \
            file://0005-configure-set-LFLAGS-to-pick-up-zlib-from-staging.patch \
@@ -24,7 +24,7 @@ SRC_URI = "http://download.qt-project.org/official_releases/qt/4.8/${PV}/qt-ever
            file://g++.conf \
            file://linux.conf"
 
-UPSTREAM_CHECK_URI = "http://download.qt.io/official_releases/qt/4.8/"
+UPSTREAM_CHECK_URI = "http://download.qt.io/archive/qt/4.8/"
 UPSTREAM_CHECK_REGEX = "(?P<pver>\d+(\.\d+)+)/"
 
 S = "${WORKDIR}/qt-everywhere-opensource-src-${PV}"
