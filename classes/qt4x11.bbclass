@@ -4,7 +4,7 @@ DEPENDS_prepend = "${QT4DEPENDS}"
 # depends on qt4-x11
 REQUIRED_DISTRO_FEATURES += "x11"
 
-inherit qmake2 distro_features_check
+inherit qmake2 features_check
 
 QT_BASE_NAME = "qt4"
 QT_DIR_NAME = "qt4"

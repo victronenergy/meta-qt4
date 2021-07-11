@@ -4,7 +4,7 @@ QTLIBPREFIX = ""
 
 require packagegroup-qt-toolchain-target.inc
 
-inherit distro_features_check
+inherit features_check
 # depends on qt4-x11-free
 REQUIRED_DISTRO_FEATURES = "x11"
 
