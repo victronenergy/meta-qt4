@@ -72,5 +72,5 @@ FILES:${QT_BASE_NAME}-fonts-pfb            = "${libdir}/fonts/*.pfb"
 FILES:${QT_BASE_NAME}-fonts-qpf            = "${libdir}/fonts/*.qpf*"
 FILES:${QT_BASE_NAME}-fonts                = "${libdir}/fonts/README ${libdir}/fonts/fontdir"
 
-inherit qt4e
+inherit pkgconfig qt4e
 

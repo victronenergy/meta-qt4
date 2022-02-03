@@ -9,6 +9,7 @@ LIC_FILES_CHKSUM = "file://LICENSE.LGPL;md5=fbc093901857fcd118f065f900982c24 \
                     file://LICENSE.GPL3;md5=6e1694ee338db410417517884918d4d2 \
                     file://LGPL_EXCEPTION.txt;md5=0145c4d1b6f96a661c2c139dfb268fb6"
 
+inherit pkgconfig
 inherit native
 
 SRC_URI = "http://download.qt-project.org/archive/qt/4.8/${PV}/qt-everywhere-opensource-src-${PV}.tar.gz \
