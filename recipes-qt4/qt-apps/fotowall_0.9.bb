@@ -26,4 +26,4 @@ do_install() {
 }
 
 # Ensure we have some plugins for some useful image formats
-RRECOMMENDS_${PN} += "qt4-plugin-imageformat-gif qt4-plugin-imageformat-jpeg qt4-plugin-imageformat-tiff"
+RRECOMMENDS:${PN} += "qt4-plugin-imageformat-gif qt4-plugin-imageformat-jpeg qt4-plugin-imageformat-tiff"

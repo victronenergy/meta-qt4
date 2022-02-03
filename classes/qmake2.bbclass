@@ -3,7 +3,7 @@
 #
 inherit qmake_base
 
-DEPENDS_prepend = "qt4-tools-native "
+DEPENDS:prepend = "qt4-tools-native "
 
 export QMAKESPEC = "${STAGING_DATADIR}/qt4/mkspecs/${TARGET_OS}-oe-g++"
 export OE_QMAKE_QT_CONFIG = "${STAGING_DATADIR}/qt4/mkspecs/qconfig.pri"

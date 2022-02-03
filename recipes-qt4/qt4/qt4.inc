@@ -6,7 +6,7 @@ DEPENDS += "${@bb.utils.contains('DISTRO_FEATURES', 'pulseaudio', 'pulseaudio', 
 require qt4_arch.inc
 
 QT_DISTRO_FLAGS ?= "-no-accessibility -no-sm"
-QT_DISTRO_FLAGS_linuxstdbase = "-sm"
+QT_DISTRO_FLAGS:linuxstdbase = "-sm"
 
 QT_SQL_DRIVER_FLAGS ?= "-no-sql-ibase -no-sql-mysql -no-sql-psql -no-sql-odbc -no-sql-sqlite2 -plugin-sql-sqlite -system-sqlite"
 
@@ -61,15 +61,15 @@ python __anonymous () {
         pkg = d.getVar("QT_BASE_LIB", True) + name.lower().replace("qt", "").replace("_", "-") + "4"
         # NOTE: the headers for QtAssistantClient are different
         incname = name.replace("QtAssistantClient", "QtAssistant")
-        d.setVar("FILES_%s" % pkg, "${libdir}/lib%(name)s${QT_LIBINFIX}.so.*" % locals())
-        d.setVar("FILES_%s-dev" % pkg, """${libdir}/lib%(name)s${QT_LIBINFIX}.prl
+        d.setVar("FILES:%s" % pkg, "${libdir}/lib%(name)s${QT_LIBINFIX}.so.*" % locals())
+        d.setVar("FILES:%s-dev" % pkg, """${libdir}/lib%(name)s${QT_LIBINFIX}.prl
                   ${libdir}/lib%(name)s${QT_LIBINFIX}.la
                   ${libdir}/lib%(name)s${QT_LIBINFIX}.so
                   ${includedir}/${QT_DIR_NAME}/%(incname)s
                   ${libdir}/pkgconfig/%(name)s${QT_LIBINFIX}.pc""" % locals())
-        d.setVar("FILES_%s-staticdev" % pkg, "${libdir}/lib%(name)s${QT_LIBINFIX}.a" % locals())
-        d.setVar("FILES_%s-dbg" % pkg, "${libdir}/.debug/lib%(name)s${QT_LIBINFIX}.so*" % locals())
-        d.setVar("RRECOMMENDS_%s-dbg" % pkg, "${PN}-dbg")
+        d.setVar("FILES:%s-staticdev" % pkg, "${libdir}/lib%(name)s${QT_LIBINFIX}.a" % locals())
+        d.setVar("FILES:%s-dbg" % pkg, "${libdir}/.debug/lib%(name)s${QT_LIBINFIX}.so*" % locals())
+        d.setVar("RRECOMMENDS:%s-dbg" % pkg, "${PN}-dbg")
         lib_packages.append(pkg)
         dev_packages.append("%s-dev" % pkg)
         dbg_packages.append("%s-dbg" % pkg)
@@ -80,15 +80,15 @@ python __anonymous () {
 
     for name in d.getVar("QT_EXTRA_LIBS", True).split():
         pkg = d.getVar("QT_BASE_LIB", True) + name.lower().replace("qt", "").replace("_", "-") + "4"
-        d.setVar("FILES_%s" % pkg, "${libdir}/lib%(name)s.so.*" % locals())
-        d.setVar("FILES_%s-staticdev" % pkg, "${libdir}/lib%(name)s.a" % locals())
-        d.setVar("FILES_%s-dev" % pkg, """${libdir}/lib%(name)s.prl
+        d.setVar("FILES:%s" % pkg, "${libdir}/lib%(name)s.so.*" % locals())
+        d.setVar("FILES:%s-staticdev" % pkg, "${libdir}/lib%(name)s.a" % locals())
+        d.setVar("FILES:%s-dev" % pkg, """${libdir}/lib%(name)s.prl
                   ${libdir}/lib%(name)s.la
                   ${libdir}/lib%(name)s.so
                   ${includedir}/${QT_DIR_NAME}/%(incname)s
                   ${libdir}/pkgconfig/%(name)s.pc""" % locals())
-        d.setVar("FILES_%s-dbg" % pkg, "${libdir}/.debug/lib%(name)s.so*" % locals())
-        d.setVar("RRECOMMENDS_%s-dbg" % pkg, "${PN}-dbg")
+        d.setVar("FILES:%s-dbg" % pkg, "${libdir}/.debug/lib%(name)s.so*" % locals())
+        d.setVar("RRECOMMENDS:%s-dbg" % pkg, "${PN}-dbg")
         lib_packages.append(pkg)
         dev_packages.append("%s-dev" % pkg)
         dbg_packages.append("%s-dbg" % pkg)
@@ -117,7 +117,7 @@ OTHER_PACKAGES = "\
              ${QT_BASE_NAME}-qt3to4 \
              ${QT_BASE_NAME}-qml-plugins"
 
-#We prepend so ${QT_BASE_NAME}-demos-doc comes before ${PN}-doc,so the packaging of FILES_ get done before.
+#We prepend so ${QT_BASE_NAME}-demos-doc comes before ${PN}-doc,so the packaging of FILES: get done before.
 PACKAGES =+ "${QT_BASE_NAME}-demos-doc"
 PACKAGES += " \
              ${LIB_PACKAGES} \
@@ -128,66 +128,66 @@ PACKAGES += " \
 
 PACKAGES_DYNAMIC += "^${QT_BASE_NAME}-plugin-.* ^${QT_BASE_NAME}-translation-.* ^${QT_BASE_NAME}-phrasebook-.*"
 
-ALLOW_EMPTY_${PN} = "1"
-FILES_${PN}     = ""
-FILES_${PN}-dev = "${includedir}/${QT_DIR_NAME}/Qt/*"
-FILES_${QT_BASE_NAME}-demos-doc = "${docdir}/${QT_DIR_NAME}/qch/qt.qch"
-RRECOMMENDS_${PN} = "${LIB_PACKAGES} ${OTHER_PACKAGES}"
-RRECOMMENDS_${PN}-dev = "${DEV_PACKAGES}"
-RRECOMMENDS_${PN}-dbg = "${DBG_PACKAGES}"
-RRECOMMENDS_${QT_BASE_LIB}core4_append_libc-glibc = " glibc-gconv-utf-16"
-RRECOMMENDS_${QT_BASE_NAME}-demos += " \
+ALLOW_EMPTY:${PN} = "1"
+FILES:${PN}     = ""
+FILES:${PN}-dev = "${includedir}/${QT_DIR_NAME}/Qt/*"
+FILES:${QT_BASE_NAME}-demos-doc = "${docdir}/${QT_DIR_NAME}/qch/qt.qch"
+RRECOMMENDS:${PN} = "${LIB_PACKAGES} ${OTHER_PACKAGES}"
+RRECOMMENDS:${PN}-dev = "${DEV_PACKAGES}"
+RRECOMMENDS:${PN}-dbg = "${DBG_PACKAGES}"
+RRECOMMENDS:${QT_BASE_LIB}core4:append:libc-glibc = " glibc-gconv-utf-16"
+RRECOMMENDS:${QT_BASE_NAME}-demos += " \
             ${QT_BASE_NAME}-examples \
             ${QT_BASE_NAME}-plugin-sqldriver-sqlite \
             ${QT_BASE_NAME}-plugin-imageformat-jpeg \
             ${QT_BASE_NAME}-qml-plugins \
             ${QT_BASE_NAME}-assistant \
             ${QT_BASE_NAME}-demos-doc"
-RRECOMMENDS_${QT_BASE_NAME}-examples += " \
+RRECOMMENDS:${QT_BASE_NAME}-examples += " \
             ${QT_BASE_NAME}-plugin-sqldriver-sqlite \
             ${QT_BASE_NAME}-plugin-imageformat-jpeg \
             ${QT_BASE_NAME}-qml-plugins"
-RRECOMMENDS_${QT_BASE_NAME}-qmlviewer += " \
+RRECOMMENDS:${QT_BASE_NAME}-qmlviewer += " \
             ${QT_BASE_NAME}-qml-plugins"
-RRECOMMENDS_${QT_BASE_NAME}-doc += " \
+RRECOMMENDS:${QT_BASE_NAME}-doc += " \
             ${QT_BASE_NAME}-demos-doc"
 
-RPROVIDES_${QT_BASE_NAME}-tools += "qmake2"
-RREPLACES_${QT_BASE_NAME}-tools += "qmake2"
+RPROVIDES:${QT_BASE_NAME}-tools += "qmake2"
+RREPLACES:${QT_BASE_NAME}-tools += "qmake2"
 
-FILES_${QT_BASE_NAME}-tools                = "${bindir}/qttracereplay ${bindir}/qdoc* ${bindir}/qmake ${bindir}/moc ${bindir}/uic* ${bindir}/rcc"
-FILES_${QT_BASE_NAME}-tools-dbg            = "${bindir}/.debug/qttracereplay ${bindir}/.debug/qdoc* ${bindir}/.debug/qmake ${bindir}/.debug/uic* ${bindir}/.debug/moc ${bindir}/.debug/rcc"
-FILES_${QT_BASE_NAME}-assistant            = "${bindir}/*assistant* ${bindir}/qcollectiongenerator ${bindir}/qhelpconverter ${bindir}/qhelpgenerator"
-FILES_${QT_BASE_NAME}-assistant-dbg        = "${bindir}/.debug/*assistant* ${bindir}/.debug/qcollectiongenerator ${bindir}/.debug/qhelpconverter ${bindir}/.debug/qhelpgenerator"
-FILES_${QT_BASE_NAME}-common               = "${bindir}/qtconfig"
-FILES_${QT_BASE_NAME}-common-dbg           = "${bindir}/.debug/qtconfig"
-FILES_${QT_BASE_NAME}-dbus                 = "${bindir}/qdbus ${bindir}/qdbusxml2cpp ${bindir}/qdbuscpp2xml ${bindir}/qdbusviewer"
-FILES_${QT_BASE_NAME}-dbus-dbg             = "${bindir}/.debug/qdbus ${bindir}/.debug/qdbusxml2cpp ${bindir}/.debug/qdbuscpp2xml ${bindir}/.debug/qdbusviewer"
-FILES_${QT_BASE_NAME}-demos                = "${bindir}/qtdemo* ${bindir}/${QT_DIR_NAME}/demos/*"
-FILES_${QT_BASE_NAME}-demos-staticdev      = "${bindir}/${QT_DIR_NAME}/demos/shared/libdemo_shared.a"
-FILES_${QT_BASE_NAME}-demos-dbg            = "${bindir}/.debug/qtdemo* ${bindir}/${QT_DIR_NAME}/demos/.debug/*  ${bindir}/${QT_DIR_NAME}/demos/*/.debug  ${bindir}/${QT_DIR_NAME}/demos/*/*/.debug  ${bindir}/${QT_DIR_NAME}/demos/*/*/*/.debug"
-FILES_${QT_BASE_NAME}-designer             = "${bindir}/*designer*"
-FILES_${QT_BASE_NAME}-designer-dbg         = "${bindir}/.debug/*designer*"
-FILES_${QT_BASE_NAME}-examples             = "${bindir}/${QT_DIR_NAME}/examples/*"
-FILES_${QT_BASE_NAME}-examples-staticdev   = "${bindir}/${QT_DIR_NAME}/examples/tools/plugandpaint/plugins/libpnp_basictools.a"
-FILES_${QT_BASE_NAME}-examples-dbg         = "${bindir}/${QT_DIR_NAME}/examples/.debug ${bindir}/${QT_DIR_NAME}/examples/*/.debug ${bindir}/${QT_DIR_NAME}/examples/*/*/.debug ${bindir}/${QT_DIR_NAME}/examples/*/*/*/.debug ${bindir}/${QT_DIR_NAME}/examples/*/*/*/*/.debug ${bindir}/${QT_DIR_NAME}/examples/declarative/*/*/*/*/*/.debug/* ${bindir}/${QT_DIR_NAME}/examples/declarative/*/*/*/*/.debug/*"
-FILES_${QT_BASE_NAME}-linguist             = "${bindir}/*linguist* ${bindir}/lrelease ${bindir}/lupdate ${bindir}/lconvert ${bindir}/qm2ts"
-FILES_${QT_BASE_NAME}-linguist-dbg         = "${bindir}/.debug/*linguist* ${bindir}/.debug/lrelease ${bindir}/.debug/lupdate ${bindir}/.debug/lconvert ${bindir}/.debug/qm2ts"
-FILES_${QT_BASE_NAME}-pixeltool            = "${bindir}/pixeltool"
-FILES_${QT_BASE_NAME}-pixeltool-dbg        = "${bindir}/.debug/pixeltool"
-FILES_${QT_BASE_NAME}-qt3to4               = "${bindir}/qt3to4 ${datadir}/${QT_DIR_NAME}/q3porting.xml"
-FILES_${QT_BASE_NAME}-qt3to4-dbg           = "${bindir}/.debug/qt3to4"
-FILES_${QT_BASE_NAME}-qmlviewer            = "${bindir}/qmlviewer"
-FILES_${QT_BASE_NAME}-qmlviewer-dbg        = "${bindir}/.debug/qmlviewer"
-FILES_${QT_BASE_NAME}-makeqpf              = "${bindir}/makeqpf"
-FILES_${QT_BASE_NAME}-makeqpf-dbg          = "${bindir}/.debug/makeqpf"
-FILES_${QT_BASE_NAME}-mkspecs              = "${datadir}/${QT_DIR_NAME}/mkspecs/* ${datadir}/${QT_DIR_NAME}/environment-setup"
-FILES_${QT_BASE_NAME}-xmlpatterns          = "${bindir}/xmlpatterns*"
-FILES_${QT_BASE_NAME}-xmlpatterns-dbg      = "${bindir}/.debug/xmlpatterns*"
-FILES_${QT_BASE_NAME}-qml-plugins          = "${libdir}/${QT_DIR_NAME}/imports/* ${libdir}/${QT_DIR_NAME}/plugins/qmltooling/*"
-FILES_${QT_BASE_NAME}-qml-plugins-dbg      = "${libdir}/${QT_DIR_NAME}/imports/*/*/*/.debug/* ${libdir}/${QT_DIR_NAME}/imports/*/.debug ${libdir}/${QT_DIR_NAME}/plugins/qmltooling/.debug"
-INSANE_SKIP_${MLPREFIX}${QT_BASE_NAME}-examples      += "libdir"
-INSANE_SKIP_${MLPREFIX}${QT_BASE_NAME}-examples-dbg  += "libdir"
+FILES:${QT_BASE_NAME}-tools                = "${bindir}/qttracereplay ${bindir}/qdoc* ${bindir}/qmake ${bindir}/moc ${bindir}/uic* ${bindir}/rcc"
+FILES:${QT_BASE_NAME}-tools-dbg            = "${bindir}/.debug/qttracereplay ${bindir}/.debug/qdoc* ${bindir}/.debug/qmake ${bindir}/.debug/uic* ${bindir}/.debug/moc ${bindir}/.debug/rcc"
+FILES:${QT_BASE_NAME}-assistant            = "${bindir}/*assistant* ${bindir}/qcollectiongenerator ${bindir}/qhelpconverter ${bindir}/qhelpgenerator"
+FILES:${QT_BASE_NAME}-assistant-dbg        = "${bindir}/.debug/*assistant* ${bindir}/.debug/qcollectiongenerator ${bindir}/.debug/qhelpconverter ${bindir}/.debug/qhelpgenerator"
+FILES:${QT_BASE_NAME}-common               = "${bindir}/qtconfig"
+FILES:${QT_BASE_NAME}-common-dbg           = "${bindir}/.debug/qtconfig"
+FILES:${QT_BASE_NAME}-dbus                 = "${bindir}/qdbus ${bindir}/qdbusxml2cpp ${bindir}/qdbuscpp2xml ${bindir}/qdbusviewer"
+FILES:${QT_BASE_NAME}-dbus-dbg             = "${bindir}/.debug/qdbus ${bindir}/.debug/qdbusxml2cpp ${bindir}/.debug/qdbuscpp2xml ${bindir}/.debug/qdbusviewer"
+FILES:${QT_BASE_NAME}-demos                = "${bindir}/qtdemo* ${bindir}/${QT_DIR_NAME}/demos/*"
+FILES:${QT_BASE_NAME}-demos-staticdev      = "${bindir}/${QT_DIR_NAME}/demos/shared/libdemo_shared.a"
+FILES:${QT_BASE_NAME}-demos-dbg            = "${bindir}/.debug/qtdemo* ${bindir}/${QT_DIR_NAME}/demos/.debug/*  ${bindir}/${QT_DIR_NAME}/demos/*/.debug  ${bindir}/${QT_DIR_NAME}/demos/*/*/.debug  ${bindir}/${QT_DIR_NAME}/demos/*/*/*/.debug"
+FILES:${QT_BASE_NAME}-designer             = "${bindir}/*designer*"
+FILES:${QT_BASE_NAME}-designer-dbg         = "${bindir}/.debug/*designer*"
+FILES:${QT_BASE_NAME}-examples             = "${bindir}/${QT_DIR_NAME}/examples/*"
+FILES:${QT_BASE_NAME}-examples-staticdev   = "${bindir}/${QT_DIR_NAME}/examples/tools/plugandpaint/plugins/libpnp_basictools.a"
+FILES:${QT_BASE_NAME}-examples-dbg         = "${bindir}/${QT_DIR_NAME}/examples/.debug ${bindir}/${QT_DIR_NAME}/examples/*/.debug ${bindir}/${QT_DIR_NAME}/examples/*/*/.debug ${bindir}/${QT_DIR_NAME}/examples/*/*/*/.debug ${bindir}/${QT_DIR_NAME}/examples/*/*/*/*/.debug ${bindir}/${QT_DIR_NAME}/examples/declarative/*/*/*/*/*/.debug/* ${bindir}/${QT_DIR_NAME}/examples/declarative/*/*/*/*/.debug/*"
+FILES:${QT_BASE_NAME}-linguist             = "${bindir}/*linguist* ${bindir}/lrelease ${bindir}/lupdate ${bindir}/lconvert ${bindir}/qm2ts"
+FILES:${QT_BASE_NAME}-linguist-dbg         = "${bindir}/.debug/*linguist* ${bindir}/.debug/lrelease ${bindir}/.debug/lupdate ${bindir}/.debug/lconvert ${bindir}/.debug/qm2ts"
+FILES:${QT_BASE_NAME}-pixeltool            = "${bindir}/pixeltool"
+FILES:${QT_BASE_NAME}-pixeltool-dbg        = "${bindir}/.debug/pixeltool"
+FILES:${QT_BASE_NAME}-qt3to4               = "${bindir}/qt3to4 ${datadir}/${QT_DIR_NAME}/q3porting.xml"
+FILES:${QT_BASE_NAME}-qt3to4-dbg           = "${bindir}/.debug/qt3to4"
+FILES:${QT_BASE_NAME}-qmlviewer            = "${bindir}/qmlviewer"
+FILES:${QT_BASE_NAME}-qmlviewer-dbg        = "${bindir}/.debug/qmlviewer"
+FILES:${QT_BASE_NAME}-makeqpf              = "${bindir}/makeqpf"
+FILES:${QT_BASE_NAME}-makeqpf-dbg          = "${bindir}/.debug/makeqpf"
+FILES:${QT_BASE_NAME}-mkspecs              = "${datadir}/${QT_DIR_NAME}/mkspecs/* ${datadir}/${QT_DIR_NAME}/environment-setup"
+FILES:${QT_BASE_NAME}-xmlpatterns          = "${bindir}/xmlpatterns*"
+FILES:${QT_BASE_NAME}-xmlpatterns-dbg      = "${bindir}/.debug/xmlpatterns*"
+FILES:${QT_BASE_NAME}-qml-plugins          = "${libdir}/${QT_DIR_NAME}/imports/* ${libdir}/${QT_DIR_NAME}/plugins/qmltooling/*"
+FILES:${QT_BASE_NAME}-qml-plugins-dbg      = "${libdir}/${QT_DIR_NAME}/imports/*/*/*/.debug/* ${libdir}/${QT_DIR_NAME}/imports/*/.debug ${libdir}/${QT_DIR_NAME}/plugins/qmltooling/.debug"
+INSANE_SKIP:${MLPREFIX}${QT_BASE_NAME}-examples      += "libdir"
+INSANE_SKIP:${MLPREFIX}${QT_BASE_NAME}-examples-dbg  += "libdir"
 
 # License options, to be set by the recipe if different values are needed
 QT_LICENSE_FILE ?= ""
@@ -273,7 +273,7 @@ do_compile() {
     cd ${S}
 }
 
-python populate_packages_prepend() {
+python populate_packages:prepend() {
     translation_dir = d.expand('${datadir}/${QT_DIR_NAME}/translations/')
     translation_name = d.expand('${QT_BASE_NAME}-translation-%s')
     do_split_packages(d, translation_dir, '^(assistant|designer|linguist|qt|qtconfig|qvfb|qtscript)_(.*)\.qm$', translation_name, '${PN} translation for %s', extra_depends='' )
@@ -307,8 +307,8 @@ python populate_packages_prepend() {
         for (file,package) in dev_packages:
             packages = "%s %s-dbg" % (packages, package)
             file_name = os.path.join(plugin_dir_dbg, os.path.basename(file))
-            d.setVar("FILES_%s-dbg" % package, file_name)
-            d.setVar("DESCRIPTION_%s-dbg" % package, "${PN} %s for %s" % (name, package))
+            d.setVar("FILES:%s-dbg" % package, file_name)
+            d.setVar("DESCRIPTION:%s-dbg" % package, "${PN} %s for %s" % (name, package))
 
         d.setVar('PACKAGES', packages)
 

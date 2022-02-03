@@ -7,7 +7,7 @@ LICENSE = "MIT"
 PR = "r4"
 
 # Qt4 could NOT be built on MIPS64 with 64 bits userspace
-COMPATIBLE_HOST_mips64 = "null"
+COMPATIBLE_HOST:mips64 = "null"
 
 inherit packagegroup features_check
 
@@ -18,5 +18,5 @@ PACKAGES = "${PN}-demoapps"
 
 QTDEMOS ?= "quicky qmmp fotowall"
 
-SUMMARY_${PN}-demoapps = "Qt demo applications"
-RDEPENDS_${PN}-demoapps = "${QTDEMOS}"
+SUMMARY:${PN}-demoapps = "Qt demo applications"
+RDEPENDS:${PN}-demoapps = "${QTDEMOS}"

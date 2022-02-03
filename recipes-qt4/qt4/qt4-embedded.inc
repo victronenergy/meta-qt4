@@ -31,7 +31,7 @@ QT_CONFIG_FLAGS += "${QT_EMBEDDED_FLAGS} ${QT_EMBEDDED_EXTRA_FLAGS} ${QT_EMBEDDE
 
 require qt4.inc
 
-do_install_append() {
+do_install:append() {
     install -d ${D}/${libdir}/fonts
     touch ${D}/${libdir}/fonts/fontdir
 
@@ -42,8 +42,8 @@ do_install_append() {
 # We put the qte profile into it's own package as we don't want to install all qt stuff
 # with depending on the global package qt4-embedded
 PACKAGES += " ${PN}-conf"
-FILES_${PN}-conf += " ${sysconfdir}/profile.d/qte.sh"
-RRECOMMENDS_${PN} += " ${PN}-conf"
+FILES:${PN}-conf += " ${sysconfdir}/profile.d/qte.sh"
+RRECOMMENDS:${PN} += " ${PN}-conf"
 
 OTHER_PACKAGES += "\
              ${QT_BASE_NAME}-fonts \
@@ -53,24 +53,24 @@ OTHER_PACKAGES += "\
              ${QT_BASE_NAME}-fonts-pfb \
              ${QT_BASE_NAME}-fonts-qpf"
 
-RRECOMMENDS_${QT_BASE_NAME}-fonts = " \
+RRECOMMENDS:${QT_BASE_NAME}-fonts = " \
              ${QT_BASE_NAME}-fonts-ttf-vera \
              ${QT_BASE_NAME}-fonts-ttf-dejavu \
              ${QT_BASE_NAME}-fonts-pfa \
              ${QT_BASE_NAME}-fonts-pfb \
              ${QT_BASE_NAME}-fonts-qpf"
-RRECOMMENDS_${QT_BASE_NAME}-demos += " \
+RRECOMMENDS:${QT_BASE_NAME}-demos += " \
             ${QT_BASE_NAME}-fonts"
 
-ALLOW_EMPTY_${QT_BASE_NAME}-fonts = "1"
+ALLOW_EMPTY:${QT_BASE_NAME}-fonts = "1"
 PACKAGES_DYNAMIC += "^${QT_BASE_NAME}-fonts-.*"
 
-FILES_${QT_BASE_NAME}-fonts-ttf-vera       = "${libdir}/fonts/Vera*.ttf"
-FILES_${QT_BASE_NAME}-fonts-ttf-dejavu     = "${libdir}/fonts/DejaVu*.ttf"
-FILES_${QT_BASE_NAME}-fonts-pfa            = "${libdir}/fonts/*.pfa"
-FILES_${QT_BASE_NAME}-fonts-pfb            = "${libdir}/fonts/*.pfb"
-FILES_${QT_BASE_NAME}-fonts-qpf            = "${libdir}/fonts/*.qpf*"
-FILES_${QT_BASE_NAME}-fonts                = "${libdir}/fonts/README ${libdir}/fonts/fontdir"
+FILES:${QT_BASE_NAME}-fonts-ttf-vera       = "${libdir}/fonts/Vera*.ttf"
+FILES:${QT_BASE_NAME}-fonts-ttf-dejavu     = "${libdir}/fonts/DejaVu*.ttf"
+FILES:${QT_BASE_NAME}-fonts-pfa            = "${libdir}/fonts/*.pfa"
+FILES:${QT_BASE_NAME}-fonts-pfb            = "${libdir}/fonts/*.pfb"
+FILES:${QT_BASE_NAME}-fonts-qpf            = "${libdir}/fonts/*.qpf*"
+FILES:${QT_BASE_NAME}-fonts                = "${libdir}/fonts/README ${libdir}/fonts/fontdir"
 
 inherit qt4e
 

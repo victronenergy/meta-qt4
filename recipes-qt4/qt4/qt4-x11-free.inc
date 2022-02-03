@@ -10,8 +10,8 @@ PROVIDES += "qt4-x11"
 QT4DEPENDS = ""
 
 QT_GLFLAGS ?= "${@bb.utils.contains('DISTRO_FEATURES', 'opengl', '-opengl', '-no-opengl', d)} "
-QT_GLFLAGS_qemux86 = "-opengl"
-QT_GLFLAGS_qemuppc = "-opengl"
+QT_GLFLAGS:qemux86 = "-opengl"
+QT_GLFLAGS:qemuppc = "-opengl"
 QT_X11_FLAGS ?= "-no-xinerama -no-xkb -no-gtkstyle"
 QT_CONFIG_FLAGS += "${QT_X11_FLAGS}"
 QT_BASE_LIB  ?= "libqt"
@@ -22,7 +22,7 @@ QT_DISTRO_FLAGS ?= "${QT_KDE_FLAGS}"
 
 inherit qt4x11
 
-do_install_append() {
+do_install:append() {
   # fix pkgconfig, libtool and prl files
   sed -i -e 's#I/usr/include#Iincludedir}#g' \ 
     -e 's#Iin#I${in#g' \

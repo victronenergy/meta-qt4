@@ -1,13 +1,13 @@
 LICENSE = "MIT"
 
 # Qt4 could NOT be built on MIPS64 with 64 bits userspace
-COMPATIBLE_HOST_mips64 = "null"
+COMPATIBLE_HOST:mips64 = "null"
 
 inherit packagegroup
 
 PACKAGEGROUP_DISABLE_COMPLEMENTARY = "1"
 
-RDEPENDS_${PN} += " \
+RDEPENDS:${PN} += " \
         packagegroup-core-standalone-sdk-target \
         qt4${QTLIBPREFIX}-mkspecs \
         libqt${QTLIBPREFIX}multimedia4-dev \
@@ -34,6 +34,6 @@ RDEPENDS_${PN} += " \
         expat-dev \
         "
 
-RRECOMMENDS_${PN} += " \
+RRECOMMENDS:${PN} += " \
         libqt${QTLIBPREFIX}phonon4-dev \
         "
