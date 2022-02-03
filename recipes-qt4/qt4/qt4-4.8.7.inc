@@ -34,6 +34,8 @@ SRC_URI = "http://download.qt-project.org/archive/qt/4.8/${PV}/qt-everywhere-ope
            file://Fix-QWSLock-invalid-argument-logs.patch \
            file://add_check_for_aarch64_32.patch \
            file://0001-QWS-fix-24-bit-RGB-BGR-handling.patch \
+           file://0001-drop-the-register-storage-specifier.patch \
+           file://0002-no-idea-seems-like-a-check-for-a-nullptr.patch \
            file://g++.conf \
            file://linux.conf \
            file://fix-for-mips-n32.patch \

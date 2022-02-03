@@ -1,0 +1,25 @@
+From 8286cdb622dc15b8829f18ae617baa183bd9169a Mon Sep 17 00:00:00 2001
+From: Jeroen Hofstee <jhofstee@victronenergy.com>
+Date: Tue, 27 Jul 2021 16:10:44 +0200
+Subject: [PATCH 2/4] no idea, seems like a check for a nullptr
+
+---
+ tools/linguist/linguist/messagemodel.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tools/linguist/linguist/messagemodel.cpp b/tools/linguist/linguist/messagemodel.cpp
+index 61c5389f2d..8d43d14bee 100644
+--- a/tools/linguist/linguist/messagemodel.cpp
++++ b/tools/linguist/linguist/messagemodel.cpp
+@@ -183,7 +183,7 @@ static int calcMergeScore(const DataModel *one, const DataModel *two)
+         if (ContextItem *c = one->findContext(oc->context())) {
+             for (int j = 0; j < oc->messageCount(); ++j) {
+                 MessageItem *m = oc->messageItem(j);
+-                if (c->findMessage(m->text(), m->comment()) >= 0)
++                if (c->findMessage(m->text(), m->comment()) != 0)
+                     ++inBoth;
+             }
+         }
+-- 
+2.25.1
+
