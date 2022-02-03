@@ -6,7 +6,7 @@ LICENSE = "LGPLv2.1 | GPLv3"
 
 FILESEXTRAPATHS =. "${FILE_DIRNAME}/qt4-${PV}:"
 
-inherit nativesdk qmake2
+inherit qmake2
 
 # This recipe builds the tools as static executables (using static libraries),
 # so we need to avoid disabling them.
@@ -34,6 +34,8 @@ LIC_FILES_CHKSUM = "file://LICENSE.LGPL;md5=fbc093901857fcd118f065f900982c24 \
                     file://LGPL_EXCEPTION.txt;md5=0145c4d1b6f96a661c2c139dfb268fb6"
 
 require qt4_arch.inc
+
+inherit nativesdk
 
 # FIXME: make it work with "${STAGING_BINDIR_NATIVE}/pkg-config --cflags dbus-1"
 EXTRA_OECONF = "-prefix ${prefix} \
