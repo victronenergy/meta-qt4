@@ -18,7 +18,7 @@ S = "${WORKDIR}/PyQt4_gpl_x11-${PV}"
 
 PARALLEL_MAKE = ""
 
-inherit qmake2 pythonnative python-dir features_check
+inherit qmake2 python3native python3-dir features_check
 # depends on qt4-x11-free
 REQUIRED_DISTRO_FEATURES = "x11"
 
