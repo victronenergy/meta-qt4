@@ -1,5 +1,5 @@
 QT4DEPENDS ?= "qt4-x11 "
-DEPENDS_prepend = "${QT4DEPENDS}"
+DEPENDS:prepend = "${QT4DEPENDS}"
 
 # depends on qt4-x11
 REQUIRED_DISTRO_FEATURES += "x11"

@@ -9,7 +9,7 @@ inherit packagegroup
 
 TOUCH = ' ${@bb.utils.contains("MACHINE_FEATURES", "touchscreen", "tslib tslib-calibrate tslib-tests qt4-embedded-plugin-mousedriver-tslib", "",d)}'
 
-RDEPENDS_${PN} = " \
+RDEPENDS:${PN} = " \
 	qt4-embedded \
 	libqt-embedded3support4 \
 	libqt-embeddedclucene4 \
@@ -43,7 +43,7 @@ RDEPENDS_${PN} = " \
         qt4-embedded-assistant \
 "
 
-RRECOMMENDS_${PN} = " \
+RRECOMMENDS:${PN} = " \
 	libqt-embeddedxmlpatterns4 \
 	qt4-embedded-plugin-phonon-backend-gstreamer \
 	${TOUCH} \

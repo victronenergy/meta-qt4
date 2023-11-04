@@ -18,5 +18,5 @@ PACKAGES = "${PN}-demoapps"
 
 QTDEMOS ?= "quicky qmmp fotowall"
 
-SUMMARY_${PN}-demoapps = "Qt demo applications"
-RDEPENDS_${PN}-demoapps = "${QTDEMOS}"
+SUMMARY:${PN}-demoapps = "Qt demo applications"
+RDEPENDS:${PN}-demoapps = "${QTDEMOS}"

@@ -11,7 +11,7 @@ SRC_URI = "${SOURCEFORGE_MIRROR}/qwt/qwt-${PV}.tar.bz2;name=qwt \
 
 S = "${WORKDIR}/qwt-${PV}"
 
-do_configure_prepend() {
+do_configure:prepend() {
     sed -i -e 's:RELEASE_SUFFIX      = :RELEASE_SUFFIX      = ${QT_LIBINFIX}:' *.pri
     sed -i -e 's:qtAddLibrary(qwt:qtAddLibrary(qwt)${QT_LIBINFIX}:g' *.prf
     sed -e 's/# QWT_CONFIG     += QwtExamples/QWT_CONFIG     += QwtExamples/g' -i qwtconfig.pri
@@ -33,8 +33,8 @@ do_install() {
     mv ${D}${prefix}/plugins ${D}${libdir}/${QT_DIR_NAME}
 }
 
-PACKAGES_prepend = "${PN}-examples ${PN}-features ${PN}-plugins "
-FILES_${PN}-examples = "${bindir}/*"
-FILES_${PN}-features = "${prefix}/features"
-FILES_${PN}-plugins = "${libdir}/${QT_DIR_NAME}/plugins/designer/*.so"
-FILES_${PN}-dbg += "${libdir}/${QT_DIR_NAME}/plugins/designer/.debug"
+PACKAGES:prepend = "${PN}-examples ${PN}-features ${PN}-plugins "
+FILES:${PN}-examples = "${bindir}/*"
+FILES:${PN}-features = "${prefix}/features"
+FILES:${PN}-plugins = "${libdir}/${QT_DIR_NAME}/plugins/designer/*.so"
+FILES:${PN}-dbg += "${libdir}/${QT_DIR_NAME}/plugins/designer/.debug"

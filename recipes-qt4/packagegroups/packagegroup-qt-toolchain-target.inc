@@ -7,7 +7,7 @@ inherit packagegroup
 
 PACKAGEGROUP_DISABLE_COMPLEMENTARY = "1"
 
-RDEPENDS_${PN} += " \
+RDEPENDS:${PN} += " \
         packagegroup-core-standalone-sdk-target \
         qt4${QTLIBPREFIX}-mkspecs \
         libqt${QTLIBPREFIX}multimedia4-dev \
@@ -34,6 +34,6 @@ RDEPENDS_${PN} += " \
         expat-dev \
         "
 
-RRECOMMENDS_${PN} += " \
+RRECOMMENDS:${PN} += " \
         libqt${QTLIBPREFIX}phonon4-dev \
         "
