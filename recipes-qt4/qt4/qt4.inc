@@ -128,14 +128,14 @@ PACKAGES += " \
 
 PACKAGES_DYNAMIC += "^${QT_BASE_NAME}-plugin-.* ^${QT_BASE_NAME}-translation-.* ^${QT_BASE_NAME}-phrasebook-.*"
 
-ALLOW_EMPTY_${PN} = "1"
-FILES_${PN}     = ""
-FILES_${PN}-dev = "${includedir}/${QT_DIR_NAME}/Qt/*"
+ALLOW_EMPTY:${PN} = "1"
+FILES:${PN}     = ""
+FILES:${PN}-dev = "${includedir}/${QT_DIR_NAME}/Qt/*"
 FILES_${QT_BASE_NAME}-demos-doc = "${docdir}/${QT_DIR_NAME}/qch/qt.qch"
-RRECOMMENDS_${PN} = "${LIB_PACKAGES} ${OTHER_PACKAGES}"
-RRECOMMENDS_${PN}-dev = "${DEV_PACKAGES}"
-RRECOMMENDS_${PN}-dbg = "${DBG_PACKAGES}"
-RRECOMMENDS_${QT_BASE_LIB}core4_append_libc-glibc = " glibc-gconv-utf-16"
+RRECOMMENDS:${PN} = "${LIB_PACKAGES} ${OTHER_PACKAGES}"
+RRECOMMENDS:${PN}-dev = "${DEV_PACKAGES}"
+RRECOMMENDS:${PN}-dbg = "${DBG_PACKAGES}"
+RRECOMMENDS_${QT_BASE_LIB}core4:append_libc-glibc = " glibc-gconv-utf-16"
 RRECOMMENDS_${QT_BASE_NAME}-demos += " \
             ${QT_BASE_NAME}-examples \
             ${QT_BASE_NAME}-plugin-sqldriver-sqlite \
@@ -202,6 +202,7 @@ do_configure() {
 
 	if [ ! -e bin/qmake ]; then
 		ln -sf ${STAGING_BINDIR_NATIVE}/qmake2 bin/qmake
+#		ln -sf ${STAGING_BINDIR_NATIVE}/moc bin/moc
 	fi
 
 	if [ ! -e mkspecs/${TARGET_OS}-oe-g++ ]; then
@@ -273,7 +274,7 @@ do_compile() {
     cd ${S}
 }
 
-python populate_packages_prepend() {
+python populate_packages:prepend() {
     translation_dir = d.expand('${datadir}/${QT_DIR_NAME}/translations/')
     translation_name = d.expand('${QT_BASE_NAME}-translation-%s')
     do_split_packages(d, translation_dir, '^(assistant|designer|linguist|qt|qtconfig|qvfb|qtscript)_(.*)\.qm$', translation_name, '${PN} translation for %s', extra_depends='' )

@@ -52,7 +52,7 @@ do_configure() {
 
 PACKAGES_DYNAMIC += "^qmmp-plugin-.* "
 
-python populate_packages_prepend () {
+python populate_packages:prepend () {
     qmmp_libdir = d.expand('${libdir}/qmmp')
     gd = d.expand('${D}/${libdir}/qmmp')
     plug_dirs = os.listdir(gd)
@@ -62,7 +62,7 @@ python populate_packages_prepend () {
         do_split_packages(d, g_plug_dir, '^lib(.*)\.so$', 'qmmp-plugin-' + plug_dir.lower() + '-%s', 'Qmmp ' + plug_dir  + ' plugin for %s')
 }
 
-FILES_${PN} = "\
+FILES:${PN} = "\
                 ${bindir}/qmmp \
                 ${libdir}/lib*${SOLIBS} \
                 ${datadir}/icons/* \
@@ -70,8 +70,8 @@ FILES_${PN} = "\
                 ${datadir}/applications/* \
                 "
 
-FILES_${PN}-dbg += "\
+FILES:${PN}-dbg += "\
                 ${libdir}/qmmp/*/.debug/* \
                "
 
-RDEPENDS_${PN} += "taglib alsa-lib libmad curl libicui18n"
+RDEPENDS:${PN} += "taglib alsa-lib libmad curl libicui18n"

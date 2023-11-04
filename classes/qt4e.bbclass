@@ -1,5 +1,5 @@
 QT4EDEPENDS ?= "qt4-embedded "
-DEPENDS_prepend = "${QT4EDEPENDS}"
+DEPENDS:prepend = "${QT4EDEPENDS}"
 
 inherit qmake2
 

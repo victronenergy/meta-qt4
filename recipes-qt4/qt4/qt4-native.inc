@@ -47,7 +47,10 @@ EXTRA_OECONF = "-prefix ${prefix} \
                 -examplesdir ${bindir}/qt4/examples \
                 -demosdir ${bindir}/qt4/demos \
                 -L ${STAGING_LIBDIR_NATIVE} \
+                -ldbus-1 \
                 -I ${STAGING_INCDIR_NATIVE} \
+                -I ${STAGING_INCDIR_NATIVE}/dbus-1.0 \
+                -I ${STAGING_LIBDIR_NATIVE}/dbus-1.0/include \
                 -qt-libjpeg -system-zlib \
                 -no-libjpeg -no-libpng -no-libmng -no-libtiff \
                 -no-accessibility \
@@ -59,7 +62,7 @@ EXTRA_OECONF = "-prefix ${prefix} \
                 -exceptions -xmlpatterns \
                 -qt3support \
                 -no-pch \
-                -no-fast -silent -no-rpath"
+                -no-fast -silent -no-rpath -dbus -qdbus"
 
 # yank default -e, otherwise we get the following error:
 # moc_qbuffer.cpp: No such file or directory

@@ -22,7 +22,7 @@ QT_DISTRO_FLAGS ?= "${QT_KDE_FLAGS}"
 
 inherit qt4x11
 
-do_install_append() {
+do_install:append() {
   # fix pkgconfig, libtool and prl files
   sed -i -e 's#I/usr/include#Iincludedir}#g' \ 
     -e 's#Iin#I${in#g' \

@@ -20,6 +20,6 @@ do_install () {
 	echo "export QT_GRAPHICSSYSTEM=${QT_GRAPHICS_SYSTEM}" > $cfg_file
 }
 
-RDEPENDS_${PN} = "${@_get_extra_rdepends(d)}"
+RDEPENDS:${PN} = "${@_get_extra_rdepends(d)}"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
