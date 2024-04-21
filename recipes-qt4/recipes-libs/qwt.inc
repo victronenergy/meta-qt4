@@ -1,7 +1,7 @@
 DESCRIPTION = "Qt Widget Extension for Technical Applications"
 SECTION = "libs"
 
-# LGPL-2.1 + some exceptions
+# LGPL-2.1-only + some exceptions
 LICENSE = "QWTv1.0"
 LIC_FILES_CHKSUM = "file://COPYING;md5=dac2743472b0462ff3cfb4af42051c88"
 
