@@ -1,4 +1,4 @@
-LICENSE = "LGPLv2.1 | GPLv3"
+LICENSE = "LGPL-2.1 | GPL-3.0"
 LIC_FILES_CHKSUM = "file://LICENSE.LGPL;md5=fbc093901857fcd118f065f900982c24 \
                     file://LICENSE.GPL3;md5=6e1694ee338db410417517884918d4d2 \
                     file://LGPL_EXCEPTION.txt;md5=0145c4d1b6f96a661c2c139dfb268fb6"
